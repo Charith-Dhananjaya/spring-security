@@ -14,14 +14,15 @@ public class MyController {
 
     private Map<Long,checkEntry> checkEntries =  new HashMap<>();
 
-    @GetMapping
+    @GetMapping("/get")
     public List<checkEntry> getAll(){
         return  new ArrayList<>(checkEntries.values());
     }
 
-    @PostMapping
-    public boolean createEntry(@RequestBody checkEntry myEntry){
+    @PostMapping("/post")
+    public checkEntry createEntry(@RequestBody checkEntry myEntry){
             checkEntries.put(myEntry.getId(), myEntry);
-            return true;
+            return myEntry;
     }
+
 }
