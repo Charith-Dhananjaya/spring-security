@@ -1,6 +1,8 @@
 package com.cd.TestSpring.controller;
 
 import com.cd.TestSpring.entity.StudentEntry;
+import com.cd.TestSpring.service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,6 +11,8 @@ import java.util.List;
 @RequestMapping("/rest")
 public class StudentControllerv2 {
 
+    @Autowired
+    private StudentService studentService;
 
 
     @GetMapping("get")
@@ -18,7 +22,7 @@ public class StudentControllerv2 {
 
     @PostMapping("post")
     public boolean createEntry(@RequestBody StudentEntry myEntry){
-
+            studentService.saveEntry(myEntry);
             return true;
     }
 

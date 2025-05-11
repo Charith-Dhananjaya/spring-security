@@ -3,7 +3,9 @@ package com.cd.TestSpring.entity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
+import java.util.Date;
+
+@Document(collection = "student_entries")
 public class StudentEntry {
     @Id
     private String id;
@@ -11,6 +13,8 @@ public class StudentEntry {
     private String name;
 
     private String title;
+
+    private Date date;
 
     public String getId() {
         return id;
@@ -34,5 +38,13 @@ public class StudentEntry {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Date getDate(){
+        return date;
+    }
+
+    public void setDate(Date date){
+        this.date = date;
     }
 }

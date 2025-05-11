@@ -3,7 +3,9 @@ package com.cd.TestSpring.service;
 import com.cd.TestSpring.entity.StudentEntry;
 import com.cd.TestSpring.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class StudentService {
 
     @Autowired
