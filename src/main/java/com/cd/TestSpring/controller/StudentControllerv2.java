@@ -20,10 +20,10 @@ public class StudentControllerv2 {
         return null;
     }
 
-    @PostMapping("post")
-    public boolean createEntry(@RequestBody StudentEntry myEntry){
-            studentService.saveEntry(myEntry);
-            return true;
+    @PostMapping
+    public StudentEntry createEntry(@RequestBody StudentEntry studentEntry){
+            studentService.saveEntry(studentEntry);
+            return studentEntry;
     }
 
     @GetMapping("id/{myId}")
@@ -37,7 +37,7 @@ public class StudentControllerv2 {
         }
 
     @PutMapping("id/{id}")
-    public StudentEntry updateEntryById(@PathVariable String id, @RequestBody StudentEntry myEntry){
+    public StudentEntry updateEntryById(@PathVariable String id, @RequestBody StudentEntry studentEntry){
         return null;
     }
 }
