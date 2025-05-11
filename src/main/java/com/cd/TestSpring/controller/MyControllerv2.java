@@ -1,42 +1,42 @@
 package com.cd.TestSpring.controller;
-import com.cd.TestSpring.entity.checkEntry;
 
+import com.cd.TestSpring.entity.checkEntry;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/_rest")
-public class MyController {
+@RequestMapping("/rest")
+public class MyControllerv2 {
 
-    private Map<Long,checkEntry> checkEntries =  new HashMap<>();
+
 
     @GetMapping("get")
     public List<checkEntry> getAll(){
-        return  new ArrayList<>(checkEntries.values());
+        return null;
     }
 
     @PostMapping("post")
-    public checkEntry createEntry(@RequestBody checkEntry myEntry){
-            checkEntries.put(myEntry.getId(), myEntry);
-            return myEntry;
+    public boolean createEntry(@RequestBody checkEntry myEntry){
+
+            return true;
     }
 
     @GetMapping("id/{myId}")
     public checkEntry getEntryById(@PathVariable Long myId){
-        return  checkEntries.get(myId);
+        return null;
     }
 
     @DeleteMapping("id/{myId}")
         public checkEntry deleteEntryById(@PathVariable Long myId){
-            return checkEntries.remove(myId);
+        return null;
         }
 
     @PutMapping("id/{id}")
     public  checkEntry updateEntryById(@PathVariable Long id, @RequestBody checkEntry myEntry){
-        return  checkEntries.put(id, myEntry);
+        return null;
     }
 }

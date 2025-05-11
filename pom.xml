@@ -45,6 +45,11 @@
 			<artifactId>opencsv</artifactId>
 			<version>5.11</version>
 		</dependency>
+		<dependency>
+			<!-- For MongoDB connectivity -->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
