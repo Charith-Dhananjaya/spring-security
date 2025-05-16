@@ -44,8 +44,8 @@ public class StudentControllerv2 {
     public StudentEntry updateEntryById(@PathVariable ObjectId id, @RequestBody StudentEntry newEntry){
         StudentEntry oldEntry = studentService.findById(id).orElse(null);
         if(oldEntry != null){
-            oldEntry.setTitle(newEntry.getTitle() != null && newEntry.getTitle().equals("") ? newEntry.getTitle() : oldEntry.getTitle());
-            oldEntry.setName(newEntry.getName() != null && newEntry.getName().equals("") ? newEntry.getName() : oldEntry.getName());
+            oldEntry.setTitle(newEntry.getTitle() != null && !newEntry.getTitle().equals("") ? newEntry.getTitle() : oldEntry.getTitle());
+            oldEntry.setName(newEntry.getName() != null && !newEntry.getName().equals("") ? newEntry.getName() : oldEntry.getName());
 
         }
 
