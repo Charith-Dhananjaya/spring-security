@@ -31,13 +31,14 @@ public class StudentControllerv2 {
 
     @GetMapping("id/{myId}")
     public StudentEntry getEntryById(@PathVariable ObjectId myId){
-        return null;
+        return studentService.findById(myId).orElse(null);
     }
 
     @DeleteMapping("id/{myId}")
-        public StudentEntry deleteEntryById(@PathVariable ObjectId myId){
-        return null;
-        }
+    public boolean deleteEntryById(@PathVariable ObjectId myId){
+        studentService.deleteById(myId);
+        return true;
+    }
 
     @PutMapping("id/{id}")
     public StudentEntry updateEntryById(@PathVariable ObjectId id, @RequestBody StudentEntry studentEntry){
