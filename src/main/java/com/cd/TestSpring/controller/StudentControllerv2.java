@@ -2,9 +2,11 @@ package com.cd.TestSpring.controller;
 
 import com.cd.TestSpring.entity.StudentEntry;
 import com.cd.TestSpring.service.StudentService;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -22,22 +24,23 @@ public class StudentControllerv2 {
 
     @PostMapping
     public StudentEntry createEntry(@RequestBody StudentEntry studentEntry){
+            studentEntry.setDate(LocalDateTime.now());
             studentService.saveEntry(studentEntry);
             return studentEntry;
     }
 
     @GetMapping("id/{myId}")
-    public StudentEntry getEntryById(@PathVariable String myId){
+    public StudentEntry getEntryById(@PathVariable ObjectId myId){
         return null;
     }
 
     @DeleteMapping("id/{myId}")
-        public StudentEntry deleteEntryById(@PathVariable String myId){
+        public StudentEntry deleteEntryById(@PathVariable ObjectId myId){
         return null;
         }
 
     @PutMapping("id/{id}")
-    public StudentEntry updateEntryById(@PathVariable String id, @RequestBody StudentEntry studentEntry){
+    public StudentEntry updateEntryById(@PathVariable ObjectId id, @RequestBody StudentEntry studentEntry){
         return null;
     }
 }

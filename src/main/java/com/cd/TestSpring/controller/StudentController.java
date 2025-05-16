@@ -1,6 +1,7 @@
 package com.cd.TestSpring.controller;
 import com.cd.TestSpring.entity.StudentEntry;
 
+import org.bson.types.ObjectId;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.List;
 @RequestMapping("/_rest")
 public class StudentController {
 
-    private Map<String, StudentEntry> studentEntries =  new HashMap<>();
+    private Map<ObjectId, StudentEntry> studentEntries =  new HashMap<>();
 
     @GetMapping("get")
     public List<StudentEntry> getAll(){
@@ -36,7 +37,7 @@ public class StudentController {
         }
 
     @PutMapping("id/{id}")
-    public StudentEntry updateEntryById(@PathVariable String id, @RequestBody StudentEntry myEntry){
+    public StudentEntry updateEntryById(@PathVariable ObjectId id, @RequestBody StudentEntry myEntry){
         return  studentEntries.put(id, myEntry);
     }
 }
