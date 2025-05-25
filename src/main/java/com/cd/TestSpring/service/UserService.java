@@ -16,8 +16,8 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public void saveEntry(Users studentEntry){
-        userRepository.save(studentEntry);
+    public Users saveEntry(Users studentEntry){
+       return userRepository.save(studentEntry);
     }
 
     public List<Users> getAll(){
