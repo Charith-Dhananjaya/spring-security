@@ -54,20 +54,24 @@ public class StudentControllerv2 {
     }
 
     @DeleteMapping("id/{myId}")
-    public ResponseEntity<?> deleteEntryById(@PathVariable ObjectId myId) {
-        studentService.deleteById(myId);
+    public ResponseEntity<?> deleteEntryById(@PathVariable ObjectId myId, @PathVariable String userName) {
+        studentService.deleteById(myId, userName);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("id/{id}")
-    public ResponseEntity<?> updateEntryById(@PathVariable ObjectId id, @RequestBody StudentEntry newEntry){
-//        StudentEntry oldEntry = studentService.findById(id).orElse(null);
-//        if(oldEntry != null){
-//            oldEntry.setTitle(newEntry.getTitle() != null && !newEntry.getTitle().equals("") ? newEntry.getTitle() : oldEntry.getTitle());
-//            oldEntry.setName(newEntry.getName() != null && !newEntry.getName().equals("") ? newEntry.getName() : oldEntry.getName());
-//            studentService.saveEntry(oldEntry, user);
-//            return new ResponseEntity<>(oldEntry, HttpStatus.OK);
-//        }
+    @PutMapping("id/{userName}/{id}")
+    public ResponseEntity<?> updateEntryById(
+            @PathVariable ObjectId id,
+            @RequestBody StudentEntry newEntry,
+            @PathVariable String userName
+    ){
+        StudentEntry oldEntry = studentService.findById(id).orElse(null);
+        if(oldEntry != null){
+            oldEntry.setTitle(newEntry.getTitle() != null && !newEntry.getTitle().equals("") ? newEntry.getTitle() : oldEntry.getTitle());
+            oldEntry.setName(newEntry.getName() != null && !newEntry.getName().equals("") ? newEntry.getName() : oldEntry.getName());
+            studentService.saveEntry(oldEntry);
+            return new ResponseEntity<>(oldEntry, HttpStatus.OK);
+        }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

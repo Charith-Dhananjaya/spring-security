@@ -29,6 +29,10 @@ public class StudentService {
         userService.saveEntry(user);
     }
 
+    public void saveEntry(StudentEntry studentEntry){
+        studentRepository.save(studentEntry);
+    }
+
     public List<StudentEntry> getAll(){
         return studentRepository.findAll();
     }
@@ -37,7 +41,10 @@ public class StudentService {
         return studentRepository.findById(id);
     }
 
-    public void deleteById(ObjectId id){
+    public void deleteById(ObjectId id, String userName){
+        Users user = userService.findByUserName(userName);
+        user.getStudentEntries().removeIf(x -> x.getId().equals(id));
+        userService.saveEntry(user);
         studentRepository.deleteById(id);
     }
 }
