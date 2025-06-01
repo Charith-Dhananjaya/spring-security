@@ -2,10 +2,13 @@ package com.cd.TestSpring.service;
 
 import com.cd.TestSpring.entity.StudentEntry;
 import com.cd.TestSpring.repository.StudentRepository;
+import com.cd.TestSpring.service.UserService;
+import com.cd.TestSpring.entity.Users;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,8 +18,15 @@ public class StudentService {
     @Autowired
     private StudentRepository studentRepository;
 
-    public void saveEntry(StudentEntry studentEntry){
-        studentRepository.save(studentEntry);
+    @Autowired
+    private UserService userService;
+
+    public void saveEntry(StudentEntry studentEntry , String userName){
+        Users user = userService.findByUserName(userName);
+        studentEntry.setDate(LocalDateTime.now());
+        StudentEntry saved = studentRepository.save(studentEntry);
+        user.getStudentEntries().add(saved);
+        userService.saveEntry(user);
     }
 
     public List<StudentEntry> getAll(){

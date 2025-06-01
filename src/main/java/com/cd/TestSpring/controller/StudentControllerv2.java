@@ -1,7 +1,9 @@
 package com.cd.TestSpring.controller;
 
 import com.cd.TestSpring.entity.StudentEntry;
+import com.cd.TestSpring.entity.Users;
 import com.cd.TestSpring.service.StudentService;
+import com.cd.TestSpring.service.UserService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,21 +21,23 @@ public class StudentControllerv2 {
     @Autowired
     private StudentService studentService;
 
+    @Autowired
+    private UserService userService;
 
-    @GetMapping("get")
-    public ResponseEntity<?> getAllData(){
-        List<StudentEntry> all = studentService.getAll();
+    @GetMapping("{userName}")
+    public ResponseEntity<?> getAllStudentEntriesOfUser(@PathVariable String userName){
+        Users user = userService.findByUserName(userName);
+        List<StudentEntry> all = user.getStudentEntries();
         if(all != null && !all.isEmpty()){
             return new ResponseEntity<>(all, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping
-    public ResponseEntity<StudentEntry> createEntry(@RequestBody StudentEntry myEntry) {
+    @PostMapping("{userName}")
+    public ResponseEntity<StudentEntry> createEntry(@RequestBody StudentEntry myEntry, @PathVariable String userName) {
         try{
-            myEntry.setDate(LocalDateTime.now());
-            studentService.saveEntry(myEntry);
+            studentService.saveEntry(myEntry, userName);
             return new ResponseEntity<>(myEntry, HttpStatus.CREATED);
         }catch(Exception e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -57,13 +61,13 @@ public class StudentControllerv2 {
 
     @PutMapping("id/{id}")
     public ResponseEntity<?> updateEntryById(@PathVariable ObjectId id, @RequestBody StudentEntry newEntry){
-        StudentEntry oldEntry = studentService.findById(id).orElse(null);
-        if(oldEntry != null){
-            oldEntry.setTitle(newEntry.getTitle() != null && !newEntry.getTitle().equals("") ? newEntry.getTitle() : oldEntry.getTitle());
-            oldEntry.setName(newEntry.getName() != null && !newEntry.getName().equals("") ? newEntry.getName() : oldEntry.getName());
-            studentService.saveEntry(oldEntry);
-            return new ResponseEntity<>(oldEntry, HttpStatus.OK);
-        }
+//        StudentEntry oldEntry = studentService.findById(id).orElse(null);
+//        if(oldEntry != null){
+//            oldEntry.setTitle(newEntry.getTitle() != null && !newEntry.getTitle().equals("") ? newEntry.getTitle() : oldEntry.getTitle());
+//            oldEntry.setName(newEntry.getName() != null && !newEntry.getName().equals("") ? newEntry.getName() : oldEntry.getName());
+//            studentService.saveEntry(oldEntry, user);
+//            return new ResponseEntity<>(oldEntry, HttpStatus.OK);
+//        }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
